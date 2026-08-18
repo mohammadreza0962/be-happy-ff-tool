@@ -1,0 +1,6 @@
+{
+  "name": "Be Happy FF Tools",
+  "description": "Professional Free Fire gaming companion for sensitivity presets, custom HUD layouts, device profile tuning, DPI guidance, graphics optimization, and headshot training routines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
