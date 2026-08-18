@@ -17,6 +17,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper
+
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew
 
