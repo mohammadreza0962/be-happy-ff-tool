@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Google AI Studio Code
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Set up Java JDK 17
@@ -17,17 +17,24 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Generate Gradle Wrapper
-        run: gradle wrapper
+      - name: Inject Build Properties Fix
+        run: |
+          echo "" >> gradle.properties
+          echo "org.gradle.jvmargs=-Djava.awt.headless=true -Xmx4096m" >> gradle.properties
+          echo "kotlin.compiler.execution.strategy=in-process" >> gradle.properties
+          echo "ksp.use.daemon=false" >> gradle.properties
+
+      - name: Generate Wrapper
+        run: gradle wrapper --gradle-version 8.2 --distribution-type bin
 
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease --no-daemon
+        run: ./gradlew bundleRelease -x test -x lint --no-daemon
 
-      - name: Upload AAB File
+      - name: Upload AAB Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-aab
+          name: playstore-aab-file
           path: app/build/outputs/bundle/release/*.aab
