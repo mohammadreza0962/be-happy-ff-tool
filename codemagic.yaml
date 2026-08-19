@@ -6,15 +6,15 @@ workflows:
     environment:
       java: 17
     scripts:
-      - name: Download Compatible Gradle
+      - name: Setup Gradle 8.2
         script: |
-          wget https://services.gradle.org/distributions/gradle-9.3.1-bin.zip
-          unzip -q gradle-9.3.1-bin.zip
-          export PATH=$PWD/gradle-9.3.1/bin:$PATH
+          wget https://services.gradle.org/distributions/gradle-8.2-bin.zip
+          unzip -q gradle-8.2-bin.zip
+          export PATH=$PWD/gradle-8.2/bin:$PATH
           gradle -v
       - name: Build AAB
         script: |
-          export PATH=$PWD/gradle-9.3.1/bin:$PATH
+          export PATH=$PWD/gradle-8.2/bin:$PATH
           gradle bundleRelease --no-daemon
     artifacts:
       - app/build/outputs/bundle/release/*.aab
