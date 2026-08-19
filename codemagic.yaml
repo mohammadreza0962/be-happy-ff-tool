@@ -8,13 +8,13 @@ workflows:
     scripts:
       - name: Download Compatible Gradle
         script: |
-          wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
-          unzip -q gradle-8.4-bin.zip
-          export PATH=$PWD/gradle-8.4/bin:$PATH
+          wget https://services.gradle.org/distributions/gradle-9.3.1-bin.zip
+          unzip -q gradle-9.3.1-bin.zip
+          export PATH=$PWD/gradle-9.3.1/bin:$PATH
           gradle -v
       - name: Build AAB
         script: |
-          export PATH=$PWD/gradle-8.4/bin:$PATH
+          export PATH=$PWD/gradle-9.3.1/bin:$PATH
           gradle bundleRelease --no-daemon
     artifacts:
       - app/build/outputs/bundle/release/*.aab
