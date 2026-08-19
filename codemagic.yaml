@@ -6,16 +6,11 @@ workflows:
     environment:
       java: 17
     scripts:
-      - name: Setup Gradle 8.2
+      - name: Setup Gradle Wrapper and Build
         script: |
-          wget https://services.gradle.org/distributions/gradle-8.2-bin.zip
-          unzip -q gradle-8.2-bin.zip
-          export PATH=$PWD/gradle-8.2/bin:$PATH
-          gradle -v
-      - name: Build AAB
-        script: |
-          export PATH=$PWD/gradle-8.2/bin:$PATH
-          gradle bundleRelease --no-daemon --no-configuration-cache
+          gradle wrapper --gradle-version 8.2
+          chmod +x gradlew
+          ./gradlew bundleRelease --no-daemon -Dorg.gradle.jvmargs="-Xmx3072m -XX:MaxMetaspaceSize=512m"
     artifacts:
       - app/build/outputs/bundle/release/*.aab
       
